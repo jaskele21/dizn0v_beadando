@@ -3,7 +3,7 @@ CREATE TABLE abroncs(
        tulaj_id number,
        felni_id number,
        evszak varchar2(250) not null,
-       betarolas_ideje date not null
+       betarolas_ideje date not null,
        gyarto varchar2(250) not null,
        meret number not null,
        profilarany number not null,
@@ -25,8 +25,17 @@ CREATE TABLE felni(
        osztaskor_atmeroje number not null,
        atmero number not null,
        szelesseg number not null,
-       csavarok_szama number not null,
-       )
+       csavarok_szama number not null
+       ) tablespace users;
 CREATE TABLE jarmu(
-       rendszam varchar2()
-       )
+       rendszam varchar2(7),
+       tulaj_id number,
+       jarmu_sulya number,
+       jarmu_max_sebbesege number
+       ) tablespace users
+ALTER TABLE abroncs ADD CONSTRAINT fk_tulaj_id
+FOREIGN KEY(tulaj_id) REFERENCES tulaj(id);
+ALTER TABLE abroncs ADD CONSTRAINT fk_felni_id
+FOREIGN KEY(felni_id) REFERENCES felni(id);
+ALTER TABLE jarmu ADD CONSTRAINT fk_tulaj_id
+FOREIGN KEY(tulaj_id) REFERENCES tulaj(id);

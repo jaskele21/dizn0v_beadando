@@ -32,10 +32,10 @@ CREATE TABLE jarmu(
        tulaj_id number,
        jarmu_sulya number,
        jarmu_max_sebbesege number
-       ) tablespace users
+       ) tablespace users;
 ALTER TABLE abroncs ADD CONSTRAINT fk_tulaj_id
 FOREIGN KEY(tulaj_id) REFERENCES tulaj(id);
 ALTER TABLE abroncs ADD CONSTRAINT fk_felni_id
 FOREIGN KEY(felni_id) REFERENCES felni(id);
-ALTER TABLE jarmu ADD CONSTRAINT fk_tulaj_id
+ALTER TABLE jarmu ADD CONSTRAINT fk_jarmu_tulaj_id
 FOREIGN KEY(tulaj_id) REFERENCES tulaj(id);
