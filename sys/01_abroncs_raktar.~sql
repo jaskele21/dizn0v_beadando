@@ -1,3 +1,12 @@
+DECLARE
+  l_cnt NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO l_cnt FROM dba_users t WHERE t.username='ABRONCS_RAKTAR';
+  IF l_cnt=1 THEN 
+    EXECUTE IMMEDIATE 'DROP USER ABRONCS_RAKTAR CASCADE';
+  END IF;
+END;
+/
 create user ABRONCS_RAKTAR 
        identified by 12345678
        default tablespace users
