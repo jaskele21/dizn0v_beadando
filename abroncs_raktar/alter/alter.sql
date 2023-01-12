@@ -4,6 +4,7 @@ ALTER TABLE abroncs ADD CONSTRAINT fk_felni_id
 FOREIGN KEY(felni_id) REFERENCES felni(id);
 ALTER TABLE jarmu ADD CONSTRAINT fk_jarmu_tulaj_id
 FOREIGN KEY(tulaj_id) REFERENCES tulaj(id);
+ALTER TABLE tulaj ADD CONSTRAINT uq_email UNIQUE (email); 
 
 ---------------------------------------------------
 

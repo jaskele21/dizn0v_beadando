@@ -1,0 +1,29 @@
+CREATE OR REPLACE PACKAGE pkg_felni IS
+  PROCEDURE uj_felni(osztaskor_atmeroje NUMBER
+                    ,atmero             NUMBER
+                    ,szelesseg          NUMBER
+                    ,csavarokszama      NUMBER);
+  FUNCTION
+END pkg_felni;
+/
+CREATE OR REPLACE PACKAGE BODY pkg_felni IS
+
+  PROCEDURE uj_felni(p_osztaskor_atmeroje NUMBER
+                    ,p_atmero             NUMBER
+                    ,p_szelesseg          NUMBER
+                    ,p_csavarokszama      NUMBER) IS
+  BEGIN
+    INSERT INTO felni
+      (osztaskor_atmeroje
+      ,atmero
+      ,szelesseg
+      ,csavarok_szama)
+    VALUES
+      (p_osztaskor_atmeroje
+      ,p_atmero
+      ,p_szelesseg
+      ,p_csavarokszama);
+  END uj_felni;
+  s
+END pkg_felni;
+/

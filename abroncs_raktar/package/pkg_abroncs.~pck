@@ -1,0 +1,72 @@
+CREATE OR REPLACE PACKAGE pkg_abroncs IS
+  PROCEDURE uj_abroncs(p_evszak      VARCHAR2
+                      ,p_gyarto      VARCHAR2
+                      ,p_meret       NUMBER
+                      ,p_profilarany NUMBER
+                      ,p_atmero      NUMBER);
+  PROCEDURE 
+  FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN;
+  FUNCTION evszak_csekk(p_evszak VARCHAR2) RETURN BOOLEAN;
+
+END pkg_abroncs;
+/
+CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
+  PROCEDURE uj_abroncs(p_evszak      VARCHAR2
+                      ,p_gyarto      VARCHAR2
+                      ,p_meret       NUMBER
+                      ,p_profilarany NUMBER
+                      ,p_atmero      NUMBER) IS
+  BEGIN
+    IF evszak_csekk(p_evszak)
+    THEN
+      INSERT INTO abroncs
+        (evszak
+        ,gyarto
+        ,betarolas_ideje
+        ,meret
+        ,profilarany
+        ,atmero)
+      VALUES
+        (p_evszak
+        ,p_gyartom
+        ,SYSDATE
+        ,p_meret
+        ,p_profilarany
+        ,p_atmero);
+    ELSE
+      raise_application_error(pkg_error.gc_wrong_evszak_ex,
+                              p_evszak || ' rossz évszak.');
+    END IF;
+  END uj_abroncs;
+  ----------------------------------------------------------
+  FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN IS
+    v_talal NUMBER;
+  BEGIN
+    SELECT COUNT(*) INTO v_talal FROM abroncs a WHERE a.id = p_id;
+    IF v_talal <> 0
+    THEN
+      RETURN TRUE;
+    ELSE
+      raise_application_error(pkg_error.gc_abroncs_not_found_ex,
+                              p_id ||
+                              '-idval rendelkezõ abroncs nem létezik.');
+      RETURN FALSE;
+    END IF;
+  END abroncs_id_csekk;
+  ----------------------------------------------------------
+  FUNCTION evszak_csekk(p_evszak VARCHAR2) RETURN BOOLEAN IS
+  BEGIN
+    CASE lower(p_evszak)
+      WHEN 'nyári' THEN
+        RETURN TRUE;
+      WHEN 'téli' THEN
+        RETURN TRUE;
+      WHEN 'négyévszakos' THEN
+        RETURN TRUE;
+      ELSE
+        RETURN FALSE;
+    END CASE;
+  END evszak_csekk;
+
+END pkg_abroncs;
+/
