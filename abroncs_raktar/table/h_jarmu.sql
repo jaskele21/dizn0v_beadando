@@ -1,6 +1,6 @@
 CREATE TABLE h_jarmu(
        rendszam varchar2(7),
-       tulaj_id number,
+       tulaj_id number not null,
        jarmu_sulya number,
        jarmu_max_sebbesege number,
        modosito_user varchar2(250),

@@ -18,6 +18,7 @@ CREATE OR REPLACE PACKAGE pkg_abroncs IS
                              ,p_id       NUMBER);
   FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN;
   FUNCTION evszak_csekk(p_evszak VARCHAR2) RETURN BOOLEAN;
+  PROCEDURE abroncs_torles(p_id);
 
 END pkg_abroncs;
 /
@@ -29,6 +30,9 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                       ,p_atmero      NUMBER) IS
   BEGIN
     IF evszak_csekk(p_evszak)
+       AND pkg_0_nagyobb.nagyobb_0(p_meret)
+       AND pkg_0_nagyobb.nagyobb_0(p_profilarany)
+       AND pkg_0_nagyobb.nagyobb_0(p_atmero)
     THEN
       INSERT INTO abroncs
         (evszak
@@ -54,6 +58,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                              ,p_id       NUMBER) IS
   BEGIN
     IF abroncs_id_csekk(p_id)
+       AND pkg_0_nagyobb.nagyobb_0(p_terheles)
     THEN
       UPDATE abroncs a SET a.terheles_index = p_terheles WHERE a.id = p_id;
     END IF;
@@ -63,6 +68,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                              ,p_id       NUMBER) IS
   BEGIN
     IF abroncs_id_csekk(p_id)
+       AND pkg_0_nagyobb.nagyobb_0(p_sebesseg)
     THEN
       UPDATE abroncs a SET a.sebesseg_index = p_sebesseg WHERE a.id = p_id;
     END IF;
@@ -72,6 +78,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                                   ,p_id            NUMBER) IS
   BEGIN
     IF abroncs_id_csekk(p_id)
+       AND pkg_0_nagyobb.nagyobb_0(p_profilmelyseg)
     THEN
       UPDATE abroncs a
          SET a.profilmelyseg = p_profilmelyseg
@@ -83,6 +90,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                             ,p_id      NUMBER) IS
   BEGIN
     IF abroncs_id_csekk(p_id)
+       AND pkg_0_nagyobb.nagyobb_0(p_dotszam)
     THEN
       UPDATE abroncs a SET a.dotszam = p_dotszam WHERE a.id = p_id;
     END IF;
@@ -142,6 +150,13 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
         RETURN FALSE;
     END CASE;
   END evszak_csekk;
-
+  ----------------------------------------------------------
+  PROCEDURE abroncs_torles(p_id) IS
+  BEGIN
+    IF abroncs_id_csekk(p_id)
+    THEN
+      DELETE FROM abroncs a where a.id=p_id;
+    END IF;
+  END abroncs_torles;
 END pkg_abroncs;
 /

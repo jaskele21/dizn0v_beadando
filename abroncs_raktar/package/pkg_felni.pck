@@ -13,16 +13,22 @@ CREATE OR REPLACE PACKAGE BODY pkg_felni IS
                     ,p_szelesseg          NUMBER
                     ,p_csavarokszama      NUMBER) IS
   BEGIN
-    INSERT INTO felni
-      (osztaskor_atmeroje
-      ,atmero
-      ,szelesseg
-      ,csavarok_szama)
-    VALUES
-      (p_osztaskor_atmeroje
-      ,p_atmero
-      ,p_szelesseg
-      ,p_csavarokszama);
+    IF pkg_0_nagyobb.nagyobb_0(p_osztaskor_atmeroje)
+       AND pkg_0_nagyobb.nagyobb_0(p_atmero)
+       AND pkg_0_nagyobb.nagyobb_0(p_szelesseg)
+       AND pkg_0_nagyobb.nagyobb_0(p_csavarokszama)
+    THEN
+      INSERT INTO felni
+        (osztaskor_atmeroje
+        ,atmero
+        ,szelesseg
+        ,csavarok_szama)
+      VALUES
+        (p_osztaskor_atmeroje
+        ,p_atmero
+        ,p_szelesseg
+        ,p_csavarokszama);
+    END IF;
   END uj_felni;
   ------------------------------------------------------------
   FUNCTION felni_id_csekk(p_id NUMBER) RETURN BOOLEAN IS
@@ -38,6 +44,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_felni IS
                               '-idval rendelkezõ felni nem létezik.');
       RETURN FALSE;
     END IF;
-    END felni_id_csekk;
+  END felni_id_csekk;
 END pkg_felni;
 /

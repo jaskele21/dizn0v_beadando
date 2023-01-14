@@ -4,7 +4,18 @@ CREATE OR REPLACE PACKAGE pkg_abroncs IS
                       ,p_meret       NUMBER
                       ,p_profilarany NUMBER
                       ,p_atmero      NUMBER);
-  PROCEDURE 
+  PROCEDURE terheles_megadasa(p_terheles NUMBER
+                             ,p_id       NUMBER);
+  PROCEDURE sebesseg_megadasa(p_sebesseg NUMBER
+                             ,p_id       NUMBER);
+  PROCEDURE profilmelyseg_megadasa(p_profilmelyseg NUMBER
+                                  ,p_id            NUMBER);
+  PROCEDURE dotszam_megadasa(p_dotszam NUMBER
+                            ,p_id      NUMBER);
+  PROCEDURE tulajhoz_rendeles(p_tulaj_id NUMBER
+                             ,p_id       NUMBER);
+  PROCEDURE felnihez_rendeles(p_felni_id NUMBER
+                             ,p_id       NUMBER);
   FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN;
   FUNCTION evszak_csekk(p_evszak VARCHAR2) RETURN BOOLEAN;
 
@@ -28,7 +39,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
         ,atmero)
       VALUES
         (p_evszak
-        ,p_gyartom
+        ,p_gyarto
         ,SYSDATE
         ,p_meret
         ,p_profilarany
@@ -38,6 +49,70 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
                               p_evszak || ' rossz évszak.');
     END IF;
   END uj_abroncs;
+  ----------------------------------------------------------
+  PROCEDURE terheles_megadasa(p_terheles NUMBER
+                             ,p_id       NUMBER) IS
+  BEGIN
+    IF abroncs_id_csekk(p_id)  and pkg_0_nagyobb.nagyobb_0(p_terheles)
+    THEN
+      UPDATE abroncs a SET a.terheles_index = p_terheles WHERE a.id = p_id;
+    END IF;
+  END terheles_megadasa;
+  ----------------------------------------------------------
+  PROCEDURE sebesseg_megadasa(p_sebesseg NUMBER
+                             ,p_id       NUMBER) IS
+  BEGIN
+    IF abroncs_id_csekk(p_id)  and pkg_0_nagyobb.nagyobb_0(p_sebesseg)
+    THEN
+      UPDATE abroncs a SET a.sebesseg_index = p_sebesseg WHERE a.id = p_id;
+    END IF;
+  END sebesseg_megadasa;
+  ----------------------------------------------------------
+  PROCEDURE profilmelyseg_megadasa(p_profilmelyseg NUMBER
+                                  ,p_id            NUMBER) IS
+  BEGIN
+    IF abroncs_id_csekk(p_id) and pkg_0_nagyobb.nagyobb_0(p_profilmelyseg)
+    THEN
+      UPDATE abroncs a
+         SET a.profilmelyseg = p_profilmelyseg
+       WHERE a.id = p_id;
+    END IF;
+  END profilmelyseg_megadasa;
+  ----------------------------------------------------------
+  PROCEDURE dotszam_megadasa(p_dotszam NUMBER
+                            ,p_id      NUMBER) IS
+  BEGIN
+    IF abroncs_id_csekk(p_id)  and pkg_0_nagyobb.nagyobb_0(p_dotszam)
+    THEN
+      UPDATE abroncs a SET a.dotszam = p_dotszam WHERE a.id = p_id;
+    END IF;
+  END dotszam_megadasa;
+
+  ----------------------------------------------------------
+  PROCEDURE felnihez_rendeles(p_felni_id NUMBER
+                             ,p_id       NUMBER) IS
+  BEGIN
+    IF pkg_felni.felni_id_csekk(p_felni_id)
+    THEN
+      IF abroncs_id_csekk(p_id)
+      THEN
+        UPDATE abroncs a SET a.felni_id = p_felni_id WHERE a.id = p_id;
+      END IF;
+    END IF;
+  END felnihez_rendeles;
+
+  ----------------------------------------------------------
+  PROCEDURE tulajhoz_rendeles(p_tulaj_id NUMBER
+                             ,p_id       NUMBER) IS
+  BEGIN
+    IF pkg_tulaj.tulaj_id_csekk(p_tulaj_id)
+    THEN
+      IF abroncs_id_csekk(p_id)
+      THEN
+        UPDATE abroncs a SET a.tulaj_id = p_tulaj_id WHERE a.id = p_id;
+      END IF;
+    END IF;
+  END tulajhoz_rendeles;
   ----------------------------------------------------------
   FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN IS
     v_talal NUMBER;

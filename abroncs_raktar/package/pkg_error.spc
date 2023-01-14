@@ -14,5 +14,11 @@ CREATE OR REPLACE PACKAGE pkg_error IS
   felni_not_found_ex EXCEPTION;
   gc_felni_not_found_ex CONSTANT NUMBER := -20005;
   PRAGMA EXCEPTION_INIT(felni_not_found_ex, -20005);
+  wrong_rendszam_format_ex EXCEPTION;
+  gc_wrong_rendszam_format_ex CONSTANT NUMBER := -20006;
+  PRAGMA EXCEPTION_INIT(wrong_rendszam_format_ex, -20006);
+  smaller_0_ex EXCEPTION;
+  gc_smaller_0_ex CONSTANT NUMBER := -20007;
+  PRAGMA EXCEPTION_INIT(smaller_0_ex, -20007);
 END pkg_error;
 /

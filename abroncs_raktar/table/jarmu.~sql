@@ -1,6 +1,6 @@
-CREATE  TABLE jarmu(
+CREATE TABLE jarmu(
        rendszam varchar2(7) primary key,
-       tulaj_id number not null,
+       tulaj_id number,
        jarmu_sulya number,
        jarmu_max_sebbesege number
        ) tablespace users;
