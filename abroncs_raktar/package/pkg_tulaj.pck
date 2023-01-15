@@ -8,6 +8,7 @@ CREATE OR REPLACE PACKAGE pkg_tulaj IS
   FUNCTION tulaj_id_csekk(p_id NUMBER) RETURN BOOLEAN;
   PROCEDURE telefon_valtozas(p_id      NUMBER
                             ,p_telszam VARCHAR2);
+  
 
 END pkg_tulaj;
 /
@@ -81,5 +82,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_tulaj IS
     END IF;
   END telefon_valtozas;
   ----------------------------------------------------
+  
 END pkg_tulaj;
 /

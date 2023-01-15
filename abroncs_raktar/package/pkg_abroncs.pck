@@ -18,7 +18,7 @@ CREATE OR REPLACE PACKAGE pkg_abroncs IS
                              ,p_id       NUMBER);
   FUNCTION abroncs_id_csekk(p_id NUMBER) RETURN BOOLEAN;
   FUNCTION evszak_csekk(p_evszak VARCHAR2) RETURN BOOLEAN;
-  PROCEDURE abroncs_torles(p_id);
+  PROCEDURE abroncs_torles(p_id NUMBER);
 
 END pkg_abroncs;
 /
@@ -151,11 +151,11 @@ CREATE OR REPLACE PACKAGE BODY pkg_abroncs IS
     END CASE;
   END evszak_csekk;
   ----------------------------------------------------------
-  PROCEDURE abroncs_torles(p_id) IS
+  PROCEDURE abroncs_torles(p_id NUMBER) IS
   BEGIN
     IF abroncs_id_csekk(p_id)
     THEN
-      DELETE FROM abroncs a where a.id=p_id;
+      DELETE FROM abroncs a WHERE a.id = p_id;
     END IF;
   END abroncs_torles;
 END pkg_abroncs;

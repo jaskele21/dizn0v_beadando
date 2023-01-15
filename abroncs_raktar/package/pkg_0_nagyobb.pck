@@ -11,7 +11,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_0_nagyobb IS
       RETURN TRUE;
     ELSE
       raise_application_error(pkg_error.gc_smaller_0_ex,
-                              p_szam|| ' kissebb vagy egyenlo mint 0.');
+                              p_szam || ' kissebb vagy egyenlo mint 0.');
       RETURN FALSE;
     END IF;
   END nagyobb_0;

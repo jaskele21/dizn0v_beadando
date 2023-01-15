@@ -20,5 +20,8 @@ CREATE OR REPLACE PACKAGE pkg_error IS
   smaller_0_ex EXCEPTION;
   gc_smaller_0_ex CONSTANT NUMBER := -20007;
   PRAGMA EXCEPTION_INIT(smaller_0_ex, -20007);
+  rendszam_not_found_ex EXCEPTION;
+  gc_rendszam_not_found_ex CONSTANT NUMBER := -20008;
+  PRAGMA EXCEPTION_INIT(rendszam_not_found_ex, -20008);
 END pkg_error;
 /

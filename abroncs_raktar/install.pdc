@@ -12,15 +12,23 @@ PROMPT Installing DB ..
 
 @./sequence/sequences.sql
 
-@./trigger/trg_abroncs.sql
-@./trigger/trg_felni.sql
-@./trigger/trg_jarmu.sql
-@./trigger/trg_tulaj.sql
-@./trigger/trg_h_abroncs.sql
-@./trigger/trg_h_felni.sql
-@./trigger/trg_h_jarmu.sql
-@./trigger/trg_h_tulaj.sql
-@./trigger/trg_.sql
+@./trigger/trg_abroncs.trg
+@./trigger/trg_felni.trg
+@./trigger/trg_jarmu.trg
+@./trigger/trg_tulaj.trg
+@./trigger/trg_h_abroncs.trg
+@./trigger/trg_h_felni.trg
+@./trigger/trg_h_jarmu.trg
+@./trigger/trg_h_tulaj.trg
+
+@./view/vw_abroncs.sql
+@./view/vw_felni.sql
+@./view/vw_jarmu.sql
+@./view/vw_tulaj.sql
+@./view/vw_centirozhato.sql
+@./view/vw_selejt.sql
+@./view/vw_suly_meghalad.sql
+@./view/vw_tarolas.sql
 
 @./type/ty_auto.typ
 
@@ -30,3 +38,9 @@ PROMPT Installing DB ..
 @./package/pkg_felni.pck
 @./package/pkg_abroncs.pck
 @./package/pkg_jarmu.pck
+
+@./insert/tulaj_insert.sql
+@./insert/felni_insert.sql
+--valamiért az abroncs_insert itt nem fut le de ha külön futtatom akkor jó
+@./insert/abroncs_insert.sql
+@./insert/jarmu_insert.sql
